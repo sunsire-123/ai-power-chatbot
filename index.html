@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI NightBot - Smart Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 🌟 Interactive Menu -->
+    <nav class="menu">
+        <ul>
+            <li>🏠 Home</li>
+            <li>📜 About</li>
+            <li>⚙️ Features</li>
+            <li>📩 Contact</li>
+        </ul>
+    </nav>
+
+    <!-- 🌙 Chatbot Logo & Name -->
+    <header class="chatbot-header">
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" alt="Chatbot Logo" class="chatbot-logo">
+        <h1>AI NightBot</h1>
+    </header>
+
+    <!-- 💬 Chat Container -->
+    <div class="chat-container">
+        <div class="chat-header">
+            <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" alt="Chatbot Icon">
+            AI NightBot - Your Smart Assistant
+        </div>
+
+        <div class="chat-box" id="chat-box">
+            <p class="bot">Hello! I'm AI NightBot. How can I assist you today? 🌙✨</p>
+        </div>
+
+        <div class="input-box">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("user-input").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            let input = document.getElementById("user-input").value.trim();
+            if (input !== "") {
+                let chatBox = document.getElementById("chat-box");
+
+                // Display user message
+                let userMessage = document.createElement("p");
+                userMessage.classList.add("user");
+                userMessage.textContent = input;
+                chatBox.appendChild(userMessage);
+
+                // Normalize input (convert to lowercase & remove punctuation)
+                let normalizedInput = input.toLowerCase().replace(/[^\w\s]/g, '');
+
+                // Possible responses
+                let responses = {
+                    "hello": "Hello! How can I assist you today? 😊",
+                    "hi": "Namaste! 🙏 How can I help you today?",
+                    "who are you": "I'm AI NightBot, your smart assistant! 🌙✨",
+                    "give me your introduction/your": "Sure! I am AI NightBot, a chatbot designed to assist you with programming, AI, web development, and general knowledge. My creator is Philip Christopher Patro. How can I help?",
+                    "what is python": "Python is a powerful programming language known for its simplicity and versatility. 🐍",
+                    "tell me about python": "Python is a popular language for web development, AI, and data science!",
+                    "what is web development": "Web development involves creating websites and web applications using HTML, CSS, JavaScript, and more!",
+                    "what is machine learning": "Machine learning is a branch of AI that enables computers to learn patterns from data and make predictions. 🤖",
+                    "tell me about generative ai": "Generative AI creates new content, such as text, images, and code, using deep learning models like GPT and GANs.",
+                    "what is pandas": "Pandas is a Python library used for data analysis and manipulation, especially with tabular data. 📊",
+                    "what is numpy": "NumPy is a library for numerical computing in Python, useful for handling arrays and mathematical operations. 🔢",
+                    "who created you": "I was created using HTML, CSS, and JavaScript! But my knowledge comes from my developer. 😊",
+                    "can you code": "Yes! I can help with programming questions, especially in Python, web development, and AI.",
+                    "give me all types of people in the world": "People can be categorized in many ways—by culture, profession, interests, personality, and more! Some common types include: 👨‍💻 Developers, 🎨 Artists, 📚 Scholars, 🚀 Innovators, 🎭 Entertainers, and 🌍 Travelers.",
+                    "what are different cultures in the world": "There are many cultures worldwide, each with unique traditions! Examples include Indian, Japanese, African, European, and Middle Eastern cultures. 🌏",
+                    "what are the types of personalities": "Personalities can be categorized into introverts, extroverts, ambiverts, thinkers, feelers, and more based on psychology. 🧠",
+                    "philip patro parents name": "Philip Christopher Patro's parents are Victor Solomon and Supriya Singh. 😊",
+                    "tell me a joke": "Why don't programmers like nature? It has too many bugs! 🐛😂",
+                    "make me laugh": "Why did the developer go broke? Because he used up all his cache! 💸😂",
+                    "motivate me": "You're doing great! Remember, every expert was once a beginner. Keep going! 💪✨",
+                    "cheer me up": "You're amazing! Just like a well-optimized code, you're efficient and full of potential! 🌟",
+                    "tell me something about india": "India is a land of diversity, rich culture, and delicious food! From the Himalayas to Kerala's backwaters, it's a treasure trove of experiences. 🇮🇳",
+                    "what is chai": "Chai is a spiced tea loved by Indians! It's made with milk, tea leaves, sugar, and spices like cardamom and ginger. ☕",
+                    "tell me about indian festivals": "India celebrates many festivals like Diwali (Festival of Lights), Holi (Festival of Colors), and Navratri (Nine Nights of Dance). Each festival is vibrant and unique! 🪔🎨",
+                    "what is your favorite indian dish": "I may not eat, but if I could, I'd love to try Butter Chicken and Masala Dosa! 🍛😋",
+                    "what is the future of technology": "The future of technology is exciting! Think AI, quantum computing, space exploration, and sustainable energy. The possibilities are endless! 🚀🤖",
+                    "what is blockchain": "Blockchain is a decentralized digital ledger technology used for secure transactions, like in cryptocurrencies. It's like a digital diary that no one can tamper with! 🔗💻",
+                    "what is cloud computing": "Cloud computing is like renting a supercomputer online! It allows you to store data and run applications over the internet. ☁️💻",
+                    "what is the best programming language": "It depends on your needs! Python is great for beginners, JavaScript for web development, and C++ for performance-heavy tasks. Choose wisely! 🐍💻",
+                    "how to stay updated with tech": "Follow tech blogs, join online communities, and never stop learning! The tech world evolves fast, so keep exploring. 🌐📚"
+                };
+
+                // Flexible input matching
+                let botResponse = "I'm still learning! But I'm here to help. 😊";
+                for (let key in responses) {
+                    if (normalizedInput.includes(key)) {
+                        botResponse = responses[key];
+                        break;
+                    }
+                }
+
+                // Display bot response
+                let botMessage = document.createElement("p");
+                botMessage.classList.add("bot");
+                botMessage.textContent = botResponse;
+                setTimeout(() => chatBox.appendChild(botMessage), 1000);
+
+                // Clear input & auto-scroll
+                document.getElementById("user-input").value = "";
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+    </script>
+
+</body>
+</html>
